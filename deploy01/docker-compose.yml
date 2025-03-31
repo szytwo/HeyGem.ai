@@ -1,27 +1,28 @@
 networks:
-  ai_network:
+  ai_network-01:
     driver: bridge
 
 services:
-  heygem-f2f:
+  heygem-f2f-01:
     image: guiji2025/heygem.ai
-    container_name: heygem-f2f
+    container_name: heygem-f2f-01
     restart: always
     runtime: nvidia
     privileged: true
     volumes:
-      - d:/AI/HeyGem/data/face2face:/code/data
+      - d:/AI/HeyGem/data01/face2face:/code/data
     environment:
-      - CUDA_VISIBLE_DEVICES=0
+      - CUDA_VISIBLE_DEVICES=2
       - PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:512
     deploy:
       resources:
         reservations:
           devices:
-            - capabilities: [gpu]
+            - driver: nvidia
+              capabilities: [gpu]
     shm_size: '8g'
     ports:
-      - '8383:8383'
+      - '8385:8383'
     command: python /code/app_local.py
     networks:
-      - ai_network
+      - ai_network-01
