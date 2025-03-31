@@ -25,7 +25,7 @@ services:
               capabilities: [gpu]
     shm_size: '8g'
     ports:
-      - '8385:8383'
+      - '18383:8383'
     command: python /code/app_local.py
     networks:
       - ai_network-01
